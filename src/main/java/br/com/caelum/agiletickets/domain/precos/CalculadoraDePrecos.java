@@ -20,7 +20,7 @@ public class CalculadoraDePrecos {
 			} else {
 				preco = sessao.getPreco();
 			}
-		} else if(tipoDeEspetaculo.equals(TipoDeEspetaculo.BALLET)) {
+		} else if(tipoDeEspetaculo.equals(TipoDeEspetaculo.BALLET) || tipoDeEspetaculo.equals(TipoDeEspetaculo.ORQUESTRA)) {
 			if(calculaPorcentagemDeIngressos(sessao) <= 0.50) { 
 				preco =  acrescentaPorcentagem( sessao,0.20);
 			} else {
@@ -28,16 +28,7 @@ public class CalculadoraDePrecos {
 			}
 			 preco= alteraPrecoDuracaoSessao(sessao, preco);
 			
-		} else if(tipoDeEspetaculo.equals(TipoDeEspetaculo.ORQUESTRA)) {
-			if(calculaPorcentagemDeIngressos(sessao) <= 0.50) { 
-				preco = acrescentaPorcentagem( sessao, 0.20);
-			} else {
-				preco = sessao.getPreco();
-			}
-
-			preco= alteraPrecoDuracaoSessao(sessao, preco);
-			
-		}  else {
+		} else {
 			//nao aplica aumento para teatro (quem vai é pobretão)
 			preco = sessao.getPreco();
 		} 
