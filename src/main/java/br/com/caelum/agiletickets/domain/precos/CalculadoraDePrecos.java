@@ -8,29 +8,20 @@ import br.com.caelum.agiletickets.models.TipoDeEspetaculo;
 public class CalculadoraDePrecos {
 
 	public static BigDecimal calcula(Sessao sessao, Integer quantidade) {
-		BigDecimal preco;
+		BigDecimal preco = sessao.getPreco();
 		
 		TipoDeEspetaculo tipoDeEspetaculo = sessao.getEspetaculo().getTipo();
-		
 		
 		if(tipoDeEspetaculo.equals(TipoDeEspetaculo.CINEMA) || tipoDeEspetaculo.equals(TipoDeEspetaculo.SHOW)) {
 			
 			if(calculaPorcentagemDeIngressos(sessao) <= 0.05 ) { 
 				preco = acrescentaPorcentagem( sessao, 0.10 ) ;
-			} else {
-				preco = sessao.getPreco();
-			}
+			} 
 		} else if(tipoDeEspetaculo.equals(TipoDeEspetaculo.BALLET) || tipoDeEspetaculo.equals(TipoDeEspetaculo.ORQUESTRA)) {
 			if(calculaPorcentagemDeIngressos(sessao) <= 0.50) { 
 				preco =  acrescentaPorcentagem( sessao,0.20);
-			} else {
-				preco = sessao.getPreco();
-			}
+			} 
 			 preco= alteraPrecoDuracaoSessao(sessao, preco);
-			
-		} else {
-			//nao aplica aumento para teatro (quem vai é pobretão)
-			preco = sessao.getPreco();
 		} 
 
 		return preco.multiply(BigDecimal.valueOf(quantidade));
